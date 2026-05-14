@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumière Beauty - Premium Makeup & Cosmetics</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --gold: #d4af37; --gold-light: #f4e5c2; --rose: #e8b4b8; --blush: #f8e8e8;
+            --dark: #1a1a1a; --charcoal: #2d2d2d; --cream: #faf7f2;
+            --shadow-soft: 0 10px 40px rgba(0,0,0,0.08);
+            --shadow-gold: 0 10px 40px rgba(212,175,55,0.15);
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+        .navbar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 3rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+        }
+
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), #b8941f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .logo::before { content: '✦'; font-size: 1.5rem; -webkit-text-fill-color: var(--gold); }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+
+        .nav-links a {
+            text-decoration: none; color: var(--charcoal); font-weight: 500; font-size: 0.95rem;
+            transition: all 0.3s; position: relative; cursor: pointer;
+        }
+
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0; height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--rose));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--gold); }
+
+        .admin-login-btn {
+            background: linear-gradient(135deg, var(--gold), #c9a06c);
+            color: white !important; padding: 0.6rem 1.8rem;
+            border-radius: 50px; font-weight: 600;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+            transition: all 0.3s;
+        }
+
+        .admin-login-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,175,55,0.4); }
+        .admin-login-btn::after { display: none !important; }
+
+        .main-content { margin-top: 80px; min-height: calc(100vh - 80px); }
+
+        .section { display: none; animation: fadeInUp 0.6s ease; }
+        .section.active { display: block; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            position: relative; height: 90vh; min-height: 600px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #faf7f2 0%, #f8e8e8 50%, #f4e5c2 100%);
+        }
+
+        .hero::before {
+            content: ''; position: absolute; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+            top: -200px; right: -100px; border-radius: 50%;
+        }
+
+        .hero::after {
+            content: ''; position: absolute; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(232,180,184,0.2) 0%, transparent 70%);
+            bottom: -100px; left: -100px; border-radius: 50%;
+        }
+
+        .hero-content { text-align: center; z-index: 2; max-width: 800px; padding: 2rem; }
+
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1.5rem;
+            background: rgba(212,175,55,0.15); border: 1px solid var(--gold);
+            border-radius: 50px; color: var(--gold); font-weight: 600;
+            font-size: 0.85rem; margin-bottom: 2rem;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--dark), var(--charcoal));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--gold), #c9a06c);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .hero p { font-size: 1.25rem; color: #666; margin-bottom: 3rem; line-height: 1.8; }
+
+        .hero-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn {
+            padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; font-size: 1rem;
+            cursor: pointer; transition: all 0.3s; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            border: none; font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), #c9a06c);
+            color: white; box-shadow: 0 10px 30px rgba(212,175,55,0.3);
+        }
+
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(212,175,55,0.4); }
+
+        .btn-secondary {
+            background: white; color: var(--charcoal); border: 2px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .btn-secondary:hover { background: var(--gold); color: white; transform: translateY(-3px); }
+        .btn-danger { background: linear-gradient(135deg, #dc3545, #c82333); color: white; }
+        .btn-success { background: linear-gradient(135deg, #28a745, #218838); color: white; }
+        .btn-warning { background: linear-gradient(135deg, #ffc107, #e0a800); color: var(--dark); }
+
+        .section-header { text-align: center; padding: 5rem 2rem 3rem; }
+
+        .section-header h2 {
+            font-size: 2.8rem; color: var(--dark); margin-bottom: 1rem;
+            position: relative; display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%;
+            transform: translateX(-50%); width: 60px; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--rose)); border-radius: 2px;
+        }
+
+        .section-header p { color: #888; font-size: 1.1rem; margin-top: 1.5rem; }
+
+        .products-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+        .filter-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+
+        .filter-btn {
+            padding: 0.7rem 1.8rem; border: 2px solid transparent; background: white;
+            border-radius: 50px; cursor: pointer; transition: all 0.3s; font-weight: 500;
+            color: #666; box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-family: 'Poppins', sans-serif;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, var(--gold), #c9a06c); color: white;
+            border-color: var(--gold); transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.25);
+        }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
+
+        .product-card {
+            background: white; border-radius: var(--radius); overflow: hidden;
+            box-shadow: var(--shadow-soft); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-gold); }
+
+        .product-image-container { position: relative; height: 320px; overflow: hidden; background: linear-gradient(135deg, var(--blush), var(--cream)); }
+
+        .product-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .product-card:hover .product-image { transform: scale(1.08); }
+
+        .product-badge {
+            position: absolute; top: 1rem; left: 1rem; padding: 0.4rem 1rem;
+            background: rgba(255,255,255,0.95); border-radius: 50px;
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--gold); backdrop-filter: blur(10px);
+        }
+
+        .product-actions {
+            position: absolute; top: 1rem; right: 1rem; display: flex; gap: 0.5rem;
+            opacity: 0; transform: translateY(-10px); transition: all 0.3s;
+        }
+
+        .product-card:hover .product-actions { opacity: 1; transform: translateY(0); }
+
+        .action-btn {
+            width: 40px; height: 40px; border-radius: 50%; background: white;
+            border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: all 0.3s; font-size: 1.1rem;
+        }
+
+        .action-btn:hover { background: var(--gold); transform: scale(1.1); }
+
+        .product-info { padding: 1.8rem; }
+
+        .product-category { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 0.5rem; }
+
+        .product-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--dark); margin-bottom: 0.8rem; line-height: 1.3; }
+
+        .product-description { color: #888; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem; }
+
+        .product-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #f0f0f0; }
+
+        .product-price { font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+        .product-price span { font-size: 0.9rem; color: #999; font-weight: 400; }
+
+        .buy-btn {
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, var(--dark), var(--charcoal));
+            color: white; border: none; border-radius: 50px; font-weight: 600;
+            cursor: pointer; transition: all 0.3s; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;
+        }
+
+        .buy-btn:hover { background: linear-gradient(135deg, var(--gold), #c9a06c); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212,175,55,0.3); }
+
+        .learning-section { background: linear-gradient(135deg, #faf7f2, var(--blush)); padding: 2rem 0 5rem; }
+
+        .learning-grid { max-width: 1400px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 2rem; }
+
+        .learning-card {
+            background: white; padding: 2.5rem; border-radius: var(--radius);
+            box-shadow: var(--shadow-soft); border-left: 4px solid var(--gold);
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+
+        .learning-card::before { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); border-radius: 50%; }
+
+        .learning-card:hover { transform: translateX(5px); box-shadow: var(--shadow-gold); }
+
+        .learning-card h3 { font-size: 1.5rem; color: var(--dark); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+
+        .learning-card ul { list-style: none; }
+
+        .learning-card li { padding: 0.7rem 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: start; gap: 0.8rem; color: #555; font-size: 0.95rem; }
+
+        .learning-card li::before { content: '›'; color: var(--gold); font-weight: 700; font-size: 1.2rem; }
+
+        .tips-section { max-width: 1400px; margin: 0 auto; padding: 3rem 2rem; }
+
+        .tip-card {
+            background: white; padding: 2rem; border-radius: var(--radius);
+            margin-bottom: 1.5rem; box-shadow: var(--shadow-soft);
+            border-left: 4px solid; position: relative; overflow: hidden;
+        }
+
+        .tip-card.gold { border-left-color: var(--gold); }
+        .tip-card.rose { border-left-color: var(--rose); }
+        .tip-card.green { border-left-color: #28a745; }
+
+        .tip-card h4 { font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--dark); display: flex; align-items: center; gap: 0.5rem; }
+
+        .tip-card p { color: #666; line-height: 1.7; }
+
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px); z-index: 2000;
+            justify-content: center; align-items: center; padding: 1rem;
+        }
+
+        .modal-overlay.active { display: flex; animation: fadeIn 0.3s; }
+
+        .modal-box {
+            background: white; border-radius: var(--radius); width: 100%;
+            max-width: 450px; padding: 2.5rem; box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            position: relative; animation: slideUp 0.4s;
+        }
+
+        .modal-box.wide { max-width: 600px; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header { text-align: center; margin-bottom: 2rem; }
+
+        .modal-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--dark); margin-bottom: 0.5rem; }
+
+        .modal-header p { color: #888; }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark); font-size: 0.9rem; }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 1rem; border: 2px solid #e8e8e8;
+            border-radius: 12px; font-family: 'Poppins', sans-serif; font-size: 1rem;
+            transition: all 0.3s; background: #fafafa;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none; border-color: var(--gold); background: white;
+            box-shadow: 0 0 0 4px rgba(212,175,55,0.1);
+        }
+
+        .modal-close {
+            position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none;
+            font-size: 1.5rem; cursor: pointer; color: #999; width: 40px; height: 40px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover { background: #f5f5f5; color: var(--dark); }
+
+        .password-strength { height: 4px; background: #e0e0e0; border-radius: 2px; margin-top: 0.5rem; overflow: hidden; }
+
+        .password-strength-bar { height: 100%; width: 0; transition: all 0.3s; border-radius: 2px; }
+
+        .strength-weak { background: #dc3545; width: 33%; }
+        .strength-medium { background: #ffc107; width: 66%; }
+        .strength-strong { background: #28a745; width: 100%; }
+
+        .password-hint { font-size: 0.8rem; color: #888; margin-top: 0.5rem; }
+
+        .admin-dashboard { display: none; padding: 2rem; max-width: 1400px; margin: 0 auto; }
+
+        .admin-dashboard.active { display: block; animation: fadeIn 0.5s; }
+
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--gold-light); }
+
+        .admin-header h2 { font-size: 2rem; color: var(--dark); }
+
+        .admin-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1.2rem; background: linear-gradient(135deg, var(--gold), #c9a06c);
+            color: white; border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+        }
+
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+
+        .stat-card {
+            background: white; padding: 1.8rem; border-radius: var(--radius);
+            box-shadow: var(--shadow-soft); border: 1px solid rgba(212,175,55,0.1);
+            position: relative; overflow: hidden;
+        }
+
+        .stat-card::after { content: ''; position: absolute; top: 0; right: 0; width: 80px; height: 80px; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); }
+
+        .stat-card h3 { font-size: 2.5rem; color: var(--gold); margin-bottom: 0.3rem; }
+
+        .stat-card p { color: #888; font-weight: 500; }
+
+        .admin-panel { background: white; border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-soft); }
+
+        .admin-panel h3 { font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--dark); display: flex; align-items: center; gap: 0.5rem; }
+
+        .admin-table { width: 100%; border-collapse: collapse; }
+
+        .admin-table th { text-align: left; padding: 1rem; border-bottom: 2px solid var(--gold-light); color: var(--gold); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .admin-table td { padding: 1rem; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+
+        .admin-table tr:hover { background: #fafafa; }
+
+        .table-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; background: linear-gradient(135deg, var(--blush), var(--cream)); }
+
+        .table-actions { display: flex; gap: 0.5rem; }
+
+        .icon-btn { width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; font-size: 1rem; }
+
+        .icon-btn.edit { background: #e3f2fd; color: #1976d2; }
+        .icon-btn.edit:hover { background: #1976d2; color: white; }
+        .icon-btn.delete { background: #ffebee; color: #c62828; }
+        .icon-btn.delete:hover { background: #c62828; color: white; }
+
+        .image-upload { border: 2px dashed #ddd; border-radius: 12px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.3s; background: #fafafa; }
+
+        .image-upload:hover { border-color: var(--gold); background: rgba(212,175,55,0.05); }
+
+        .image-preview { max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 1rem; display: none; }
+
+        .image-preview.active { display: block; }
+
+        .toast {
+            position: fixed; top: 100px; right: 2rem; background: var(--dark); color: white;
+            padding: 1rem 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 3000; transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 500; display: flex; align-items: center; gap: 0.8rem;
+        }
+
+        .toast.show { transform: translateX(0); }
+
+        .toast.success { background: linear-gradient(135deg, #28a745, #218838); }
+        .toast.error { background: linear-gradient(135deg, #dc3545, #c82333); }
+        .toast.warning { background: linear-gradient(135deg, #ffc107, #e0a800); color: var(--dark); }
+
+        footer { background: var(--dark); color: white; padding: 4rem 2rem 1.5rem; margin-top: 4rem; }
+
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+
+        .footer-section h4 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--gold); font-family: 'Playfair Display', serif; }
+
+        .footer-section a { color: #aaa; text-decoration: none; display: block; padding: 0.4rem 0; transition: all 0.3s; }
+
+        .footer-section a:hover { color: var(--gold); padding-left: 5px; }
+
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #333; color: #666; font-size: 0.9rem; }
+
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+
+        .social-links a { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; transition: all 0.3s; padding: 0; }
+
+        .social-links a:hover { background: var(--gold); color: white; padding-left: 0; transform: translateY(-3px); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .products-grid { grid-template-columns: 1fr; }
+            .learning-grid { grid-template-columns: 1fr; }
+            .admin-grid { grid-template-columns: 1fr; }
+        }
+
+        .empty-state { text-align: center; padding: 4rem 2rem; color: #999; }
+
+        .empty-state-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.5; }
+
+        .security-notice {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left: 4px solid #ffc107; padding: 1rem 1.5rem;
+            border-radius: 0 12px 12px 0; margin-bottom: 2rem;
+            display: flex; align-items: center; gap: 1rem;
+            font-size: 0.9rem; color: #856404;
+        }
+
+        .security-notice strong { color: var(--dark); }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="showSection('home')">Lumière Beauty</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('makeup')">Collection</a></li>
+                <li><a href="#" onclick="showSection('learning')">Academy</a></li>
+                <li><a href="#" onclick="showSection('about')">About</a></li>
+                <li><a href="#" class="admin-login-btn" onclick="openLoginModal()">🔐 Owner Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- HOME SECTION -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge">✦ Premium Beauty Destination</div>
+                    <h1>Illuminate Your <span>Natural Beauty</span></h1>
+                    <p>Discover our curated collection of luxury cosmetics, expert-curated skincare, and transformative beauty essentials designed to make you radiate confidence.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary" onclick="showSection('makeup')">Explore Collection</a>
+                        <a href="#" class="btn btn-secondary" onclick="showSection('learning')">Beauty Academy</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Featured Essentials</h2>
+                <p>Handpicked favorites from our luxury collection</p>
+            </div>
+
+            <div class="products-container">
+                <div class="products-grid" id="featuredProducts"></div>
+            </div>
+
+            <div class="section-header" style="padding-top: 2rem;">
+                <h2>Why Lumière?</h2>
+                <p>The difference is in the details</p>
+            </div>
+
+            <div class="products-container">
+                <div class="learning-grid">
+                    <div class="learning-card">
+                        <h3>🎯 Curated Excellence</h3>
+                        <ul>
+                            <li>Every product tested by certified beauty experts</li>
+                            <li>Only premium, authentic brands selected</li>
+                            <li>Rigorous quality control standards</li>
+                            <li>Sustainable and cruelty-free options</li>
+                        </ul>
+                    </div>
+                    <div class="learning-card">
+                        <h3>📚 Expert Knowledge</h3>
+                        <ul>
+                            <li>Professional makeup artist tutorials</li>
+                            <li>Personalized product recommendations</li>
+                            <li>Skin type analysis guides</li>
+                            <li>Seasonal trend updates</li>
+                        </ul>
+                    </div>
+                    <div class="learning-card">
+                        <h3>🛡️ Trusted Shopping</h3>
+                        <ul>
+                            <li>Verified authentic products only</li>
+                            <li>Secure payment processing</li>
+                            <li>30-day satisfaction guarantee</li>
+                            <li>Fast, insured worldwide shipping</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAKEUP COLLECTION -->
+        <section id="makeup" class="section">
+            <div class="section-header">
+                <h2>Our Collection</h2>
+                <p>Browse our complete range of premium beauty products</p>
+            </div>
+
+            <div class="products-container">
+                <div class="filter-bar">
+                    <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                    <button class="filter-btn" onclick="filterProducts('face')">Face</button>
+                    <button class="filter-btn" onclick="filterProducts('eyes')">Eyes</button>
+                    <button class="filter-btn" onclick="filterProducts('lips')">Lips</button>
+                    <button class="filter-btn" onclick="filterProducts('skincare')">Skincare</button>
+                    <button class="filter-btn" onclick="filterProducts('tools')">Tools</button>
+                </div>
+
+                <div class="products-grid" id="allProducts"></div>
+            </div>
+        </section>
+
+        <!-- LEARNING HUB -->
+        <section id="learning" class="section">
+            <div class="hero" style="height: 50vh; min-height: 400px;">
+                <div class="hero-content">
+                    <div class="hero-badge">✦ Learn From Experts</div>
+                    <h1 style="font-size: 3.5rem;">Beauty <span>Academy</span></h1>
+                    <p>Master the art of makeup with professional techniques, product knowledge, and insider secrets from industry experts.</p>
+                </div>
+            </div>
+
+            <div class="learning-section">
+                <div class="section-header">
+                    <h2>Product Guides</h2>
+                    <p>Comprehensive knowledge to perfect your routine</p>
+                </div>
+                <div class="learning-grid" id="learningContent"></div>
+            </div>
+
+            <div class="tips-section">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 2rem; text-align: center;">Pro Tips & Secrets</h2>
+                <div id="tipsContent"></div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section">
+            <div class="section-header">
+                <h2>About Lumière</h2>
+                <p>Our story, mission, and commitment to beauty</p>
+            </div>
+            <div class="products-container">
+                <div class="learning-grid" style="max-width: 900px; margin: 0 auto;">
+                    <div class="learning-card" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <h3>✦ Our Philosophy</h3>
+                        <p style="color: #666; line-height: 1.8; margin-top: 1rem;">
+                            At Lumière Beauty, we believe that makeup is more than cosmetics—it's a form of self-expression, 
+                            confidence, and artistry. Founded with a passion for authentic beauty, we curate only the finest 
+                            products that meet our rigorous standards for quality, performance, and ethical sourcing.
+                        </p>
+                    </div>
+                    <div class="learning-card">
+                        <h3>🌿 Sustainability</h3>
+                        <ul>
+                            <li>Eco-friendly packaging initiatives</li>
+                            <li>Cruelty-free brand partnerships</li>
+                            <li>Carbon-neutral shipping options</li>
+                            <li>Recycling program for empties</li>
+                        </ul>
+                    </div>
+                    <div class="learning-card">
+                        <h3>💎 Quality Promise</h3>
+                        <ul>
+                            <li>100% authentic products guarantee</li>
+                            <li>Expert testing and review process</li>
+                            <li>Direct brand partnerships</li>
+                            <li>Satisfaction guaranteed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADMIN DASHBOARD (Hidden) -->
+        <div class="admin-dashboard" id="adminDashboard">
+            <div class="admin-header">
+                <div>
+                    <h2>Owner Dashboard</h2>
+                    <p style="color: #888; margin-top: 0.3rem;">Manage your entire store</p>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <span class="admin-badge">👑 Owner Access</span>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <div class="security-notice" id="securityNotice" style="display: none;">
+                <span>⚠️</span>
+                <div>
+                    <strong>Security Alert:</strong> You are using the default password. Please change it immediately for security.
+                    <a href="#" onclick="openPasswordModal()" style="color: #856404; font-weight: 600; text-decoration: underline;">Change Password</a>
+                </div>
+            </div>
+
+            <div class="admin-grid">
+                <div class="stat-card">
+                    <h3 id="statTotalProducts">0</h3>
+                    <p>Total Products</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statCategories">0</h3>
+                    <p>Categories</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statTotalValue">$0</h3>
+                    <p>Inventory Value</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statGuides">0</h3>
+                    <p>Learning Guides</p>
+                </div>
+            </div>
+
+            <div class="admin-panel">
+                <h3>➕ Add New Product</h3>
+                <form id="addProductForm" onsubmit="saveProduct(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <label>Product Name *</label>
+                            <input type="text" id="prodName" required placeholder="e.g., Velvet Matte Lipstick">
+                        </div>
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select id="prodCategory" required>
+                                <option value="face">Face</option>
+                                <option value="eyes">Eyes</option>
+                                <option value="lips">Lips</option>
+                                <option value="skincare">Skincare</option>
+                                <option value="tools">Tools</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <textarea id="prodDesc" rows="3" required placeholder="Describe the product features and benefits..."></textarea>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <label>Price ($) *</label>
+                            <input type="number" id="prodPrice" step="0.01" min="0" required placeholder="29.99">
+                        </div>
+                        <div class="form-group">
+                            <label>Buy Link (Affiliate/Store URL) *</label>
+                            <input type="url" id="prodLink" required placeholder="https://your-affiliate-link.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <div class="image-upload" onclick="document.getElementById('prodImageInput').click()">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📷</div>
+                            <p>Click to upload product image</p>
+                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">or paste image URL below</p>
+                            <input type="file" id="prodImageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(this)">
+                            <img id="imagePreview" class="image-preview">
+                        </div>
+                        <input type="url" id="prodImageUrl" placeholder="Or paste image URL here..." style="margin-top: 1rem;" onchange="updateImagePreview(this.value)">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Add Product</button>
+                </form>
+            </div>
+
+            <div class="admin-panel">
+                <h3>📦 Manage Products</h3>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminProductTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="admin-panel">
+                <h3>🔐 Security Settings</h3>
+                <p style="color: #666; margin-bottom: 1.5rem;">Protect your owner access with a strong password</p>
+                <button class="btn btn-warning" onclick="openPasswordModal()">Change Owner Password</button>
+            </div>
+
+            <div class="admin-panel">
+                <h3>⚙️ Site Settings</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label>Site Title</label>
+                        <input type="text" id="siteTitle" value="Lumière Beauty">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email</label>
+                        <input type="email" id="siteEmail" value="hello@lumierebeauty.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Meta Description (SEO)</label>
+                    <textarea id="siteMeta" rows="2">Discover luxury makeup products, expert beauty tutorials, and professional cosmetics at Lumière Beauty.</textarea>
+                </div>
+                <button class="btn btn-success" onclick="saveSettings()" style="margin-top: 1rem;">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+            <div class="modal-header">
+                <h2>Owner Login</h2>
+                <p>Enter your credentials to access the dashboard</p>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUser" required placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPass" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Access Dashboard</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; color: #999; font-size: 0.9rem;">
+                Default: admin / admin123
+            </p>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-box wide">
+            <button class="modal-close" onclick="closePasswordModal()">&times;</button>
+            <div class="modal-header">
+                <h2>🔐 Change Password</h2>
+                <p>Update your owner access credentials</p>
+            </div>
+            <form id="changePasswordForm" onsubmit="handlePasswordChange(event)">
+                <div class="form-group">
+                    <label>Current Password *</label>
+                    <input type="password" id="currentPass" required placeholder="Enter current password">
+                </div>
+                <div class="form-group">
+                    <label>New Password *</label>
+                    <input type="password" id="newPass" required placeholder="Enter new password" oninput="checkPasswordStrength(this.value)">
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <p class="password-hint">Use at least 8 characters with letters, numbers, and symbols</p>
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password *</label>
+                    <input type="password" id="confirmPass" required placeholder="Confirm new password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Update Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-box wide">
+            <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            <div class="modal-header">
+                <h2>Edit Product</h2>
+                <p>Update product details</p>
+            </div>
+            <form id="editProductForm" onsubmit="updateProduct(event)">
+                <input type="hidden" id="editId">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="editCategory" required>
+                        <option value="face">Face</option>
+                        <option value="eyes">Eyes</option>
+                        <option value="lips">Lips</option>
+                        <option value="skincare">Skincare</option>
+                        <option value="tools">Tools</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editDesc" rows="3" required></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label>Price ($)</label>
+                        <input type="number" id="editPrice" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Buy Link</label>
+                        <input type="url" id="editLink" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="url" id="editImage">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Update Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Lumière Beauty</h4>
+                <p style="color: #aaa; line-height: 1.7; margin-bottom: 1rem;">Illuminating the world with premium beauty products and expert knowledge since 2024.</p>
+                <div class="social-links">
+                    <a href="#">📷</a>
+                    <a href="#">🐦</a>
+                    <a href="#">💼</a>
+                    <a href="#">▶️</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Shop</h4>
+                <a href="#" onclick="showSection('makeup'); filterProducts('face')">Face Makeup</a>
+                <a href="#" onclick="showSection('makeup'); filterProducts('eyes')">Eye Makeup</a>
+                <a href="#" onclick="showSection('makeup'); filterProducts('lips')">Lip Products</a>
+                <a href="#" onclick="showSection('makeup'); filterProducts('skincare')">Skincare</a>
+            </div>
+            <div class="footer-section">
+                <h4>Learn</h4>
+                <a href="#" onclick="showSection('learning')">Beauty Academy</a>
+                <a href="#" onclick="showSection('learning')">Product Guides</a>
+                <a href="#" onclick="showSection('learning')">Pro Tips</a>
+                <a href="#" onclick="showSection('learning')">Skin Types</a>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="#" onclick="showSection('about')">About Us</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> 2026 Lumière Beauty. All rights reserved. | Crafted with ✦ for beauty enthusiasts</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data Storage
+        let products = JSON.parse(localStorage.getItem('lumiere_products')) || [
+            { id: 1, name: "Velvet Matte Lipstick", category: "lips", description: "Luxurious long-wear matte formula enriched with vitamin E and jojoba oil for comfortable, non-drying wear. Intense pigment in one swipe.", price: 32.00, link: "https://example.com/lipstick", image: "" },
+            { id: 2, name: "Radiance Serum Foundation", category: "face", description: "Lightweight serum foundation with hyaluronic acid and SPF 30. Buildable medium coverage with a natural luminous finish.", price: 48.50, link: "https://example.com/foundation", image: "" },
+            { id: 3, name: "Lash Amplifier Mascara", category: "eyes", description: "Volumizing and lengthening mascara with micro-fiber formula. Smudge-proof, flake-free, and easy to remove.", price: 28.00, link: "https://example.com/mascara", image: "" },
+            { id: 4, name: "Hydra-Glow Essence", category: "skincare", description: "Triple-hydration essence with niacinamide and ceramides. Preps skin for makeup while improving texture over time.", price: 56.00, link: "https://example.com/essence", image: "" },
+            { id: 5, name: "Artisan Brush Collection", category: "tools", description: "12-piece professional brush set with synthetic bristles and weighted handles. Includes travel case.", price: 85.00, link: "https://example.com/brushes", image: "" },
+            { id: 6, name: "Sunset Eyeshadow Palette", category: "eyes", description: "24 highly pigmented shades in matte, shimmer, and metallic finishes. Blendable, long-wearing, and versatile.", price: 65.00, link: "https://example.com/palette", image: "" }
+        ];
+
+        let learningGuides = JSON.parse(localStorage.getItem('lumiere_guides')) || [
+            { id: 1, title: "Foundation Mastery", icon: "🧴", content: ["Identify your skin type: oily, dry, combination, or sensitive", "Determine undertone: warm (golden), cool (pink), or neutral", "Match shade along jawline in natural daylight", "Choose coverage: sheer, medium, or full based on occasion", "Apply with damp sponge for seamless blending", "Set with powder for extended wear"] },
+            { id: 2, title: "Eye Makeup Artistry", icon: "👁️", content: ["Prime lids to prevent creasing and enhance pigment", "Apply transition shade to crease for depth", "Pack shimmer on lid with finger for intensity", "Tightline upper waterline for fuller lash look", "Curl lashes before mascara application", "Define brows to frame the entire eye look"] },
+            { id: 3, title: "Lip Perfection", icon: "💋", content: ["Exfoliate lips weekly for smooth application", "Apply lip balm 10 minutes before color", "Use liner to define shape and prevent bleeding", "Apply lipstick with brush for precision", "Blot and layer for maximum longevity", "Highlight cupid's bow for dimension"] },
+            { id: 4, title: "Skincare Rituals", icon: "✨", content: ["Double cleanse: oil cleanser then water-based", "Apply toner to balance pH levels", "Layer serums from thinnest to thickest", "Use eye cream with ring finger gently", "Moisturize while skin is slightly damp", "Never skip SPF, even on cloudy days"] }
+        ];
+
+        let tips = JSON.parse(localStorage.getItem('lumiere_tips')) || [
+            { title: "Foundation Matching", content: "Always test foundation on your jawline, not your wrist. Natural lighting reveals the truest match. Wait 2 minutes for the formula to oxidize before deciding.", type: "gold" },
+            { title: "Brush Maintenance", content: "Clean brushes weekly with gentle shampoo. Lay flat to dry to prevent water damage to the ferrule. Quality brushes last years with proper care.", type: "rose" },
+            { title: "Product Layering", content: "Allow 1-2 minutes between skincare and makeup layers. This prevents pilling and ensures each product performs optimally. Pat, don't rub, for better absorption.", type: "green" }
+        ];
+
+        // Auth Credentials - stored securely in localStorage
+        let authCredentials = JSON.parse(localStorage.getItem('lumiere_auth')) || {
+            username: 'admin',
+            password: 'admin123',
+            isDefault: true
+        };
+
+        let currentFilter = 'all';
+        let isLoggedIn = false;
+        let uploadedImageBase64 = '';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderAll();
+            updateStats();
+        });
+
+        function renderAll() {
+            renderProducts();
+            renderLearning();
+            renderTips();
+            renderAdminTable();
+        }
+
+        // Navigation
+        function showSection(sectionId) {
+            if (sectionId === 'admin' && !isLoggedIn) {
+                openLoginModal();
+                return;
+            }
+
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('adminDashboard').classList.remove('active');
+            
+            if (sectionId === 'admin') {
+                document.getElementById('adminDashboard').classList.add('active');
+                checkDefaultPassword();
+            } else {
+                document.getElementById(sectionId).classList.add('active');
+            }
+
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            window.scrollTo(0, 0);
+            history.pushState(null, null, '#' + sectionId);
+        }
+
+        // Check if using default password
+        function checkDefaultPassword() {
+            if (authCredentials.isDefault) {
+                document.getElementById('securityNotice').style.display = 'flex';
+            } else {
+                document.getElementById('securityNotice').style.display = 'none';
+            }
+        }
+
+        // Product Rendering
+        function renderProducts() {
+            const featured = document.getElementById('featuredProducts');
+            const all = document.getElementById('allProducts');
+            
+            let featuredHTML = '';
+            let allHTML = '';
+            
+            products.forEach((product, index) => {
+                const card = createProductCard(product);
+                if (index < 3) featuredHTML += card;
+                if (currentFilter === 'all' || product.category === currentFilter) {
+                    allHTML += card;
+                }
+            });
+            
+            featured.innerHTML = featuredHTML || '<div class="empty-state"><div class="empty-state-icon">📦</div><p>No featured products yet</p></div>';
+            all.innerHTML = allHTML || '<div class="empty-state"><div class="empty-state-icon">🔍</div><p>No products in this category</p></div>';
+        }
+
+        function createProductCard(product) {
+            const imgDisplay = product.image ? 
+                `<img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem;\'>${getEmoji(product.category)}</div>'">` : 
+                `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem;">${getEmoji(product.category)}</div>`;
+            
+            return `
+                <div class="product-card">
+                    <div class="product-image-container">
+                        ${imgDisplay}
+                        <div class="product-badge">${product.category}</div>
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="window.open('${product.link}', '_blank')" title="Buy Now">🛒</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-footer">
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <a href="${product.link}" target="_blank" class="buy-btn">Buy Now →</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getEmoji(category) {
+            const emojis = { face: '🧴', eyes: '👁️', lips: '💄', skincare: '✨', tools: '🖌️' };
+            return emojis[category] || '💋';
+        }
+
+        function renderLearning() {
+            const container = document.getElementById('learningContent');
+            container.innerHTML = learningGuides.map(guide => `
+                <div class="learning-card">
+                    <h3>${guide.icon} ${guide.title}</h3>
+                    <ul>
+                        ${guide.content.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        }
+
+        function renderTips() {
+            const container = document.getElementById('tipsContent');
+            container.innerHTML = tips.map(tip => `
+                <div class="tip-card ${tip.type}">
+                    <h4>${getTipIcon(tip.type)} ${tip.title}</h4>
+                    <p>${tip.content}</p>
+                </div>
+            `).join('');
+        }
+
+        function getTipIcon(type) {
+            const icons = { gold: '💡', rose: '🌸', green: '🌿' };
+            return icons[type] || '✦';
+        }
+
+        // Filter
+        function filterProducts(category) {
+            currentFilter = category;
+            renderProducts();
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if ((category === 'all' && btn.textContent.includes('All')) || 
+                    btn.textContent.toLowerCase().includes(category)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Image Handling
+        function handleImageUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImageBase64 = e.target.result;
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.classList.add('active');
+                    document.getElementById('prodImageUrl').value = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateImagePreview(url) {
+            if (url) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = url;
+                preview.classList.add('active');
+                uploadedImageBase64 = url;
+            }
+        }
+
+        // Admin & Login
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('loginUser').value;
+            const pass = document.getElementById('loginPass').value;
+            
+            if (user === authCredentials.username && pass === authCredentials.password) {
+                isLoggedIn = true;
+                closeLoginModal();
+                showSection('admin');
+                showToast('Welcome back, Owner! 👑', 'success');
+                updateNavForAdmin();
+            } else {
+                showToast('Invalid credentials! Please try again.', 'error');
+            }
+        }
+
+        function updateNavForAdmin() {
+            const btn = document.querySelector('.admin-login-btn');
+            btn.textContent = '👑 Dashboard';
+            btn.onclick = function() { showSection('admin'); };
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            showSection('home');
+            showToast('Logged out successfully');
+            
+            const btn = document.querySelector('.admin-login-btn');
+            btn.textContent = '🔐 Owner Login';
+            btn.onclick = function() { openLoginModal(); };
+        }
+
+        // Password Change
+        function openPasswordModal() {
+            document.getElementById('passwordModal').classList.add('active');
+            document.getElementById('currentPass').value = '';
+            document.getElementById('newPass').value = '';
+            document.getElementById('confirmPass').value = '';
+            document.getElementById('strengthBar').className = 'password-strength-bar';
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+        }
+
+        function checkPasswordStrength(password) {
+            const bar = document.getElementById('strengthBar');
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            
+            bar.className = 'password-strength-bar';
+            if (strength <= 1) bar.classList.add('strength-weak');
+            else if (strength === 2) bar.classList.add('strength-medium');
+            else bar.classList.add('strength-strong');
+        }
+
+        function handlePasswordChange(e) {
+            e.preventDefault();
+            
+            const currentPass = document.getElementById('currentPass').value;
+            const newPass = document.getElementById('newPass').value;
+            const confirmPass = document.getElementById('confirmPass').value;
+            
+            // Verify current password
+            if (currentPass !== authCredentials.password) {
+                showToast('Current password is incorrect!', 'error');
+                return;
+            }
+            
+            // Validate new password
+            if (newPass.length < 6) {
+                showToast('New password must be at least 6 characters!', 'error');
+                return;
+            }
+            
+            // Check match
+            if (newPass !== confirmPass) {
+                showToast('New passwords do not match!', 'error');
+                return;
+            }
+            
+            // Update credentials
+            authCredentials.password = newPass;
+            authCredentials.isDefault = false;
+            localStorage.setItem('lumiere_auth', JSON.stringify(authCredentials));
+            
+            closePasswordModal();
+            checkDefaultPassword();
+            showToast('Password updated successfully! 🔐', 'success');
+        }
+
+        // Product Management
+        function saveProduct(e) {
+            e.preventDefault();
+            
+            const imageUrl = document.getElementById('prodImageUrl').value || uploadedImageBase64;
+            
+            const newProduct = {
+                id: Date.now(),
+                name: document.getElementById('prodName').value,
+                category: document.getElementById('prodCategory').value,
+                description: document.getElementById('prodDesc').value,
+                price: parseFloat(document.getElementById('prodPrice').value),
+                link: document.getElementById('prodLink').value,
+                image: imageUrl
+            };
+            
+            products.push(newProduct);
+            saveData();
+            renderAll();
+            updateStats();
+            
+            document.getElementById('addProductForm').reset();
+            document.getElementById('imagePreview').classList.remove('active');
+            uploadedImageBase64 = '';
+            
+            showToast('Product added successfully! ✨', 'success');
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('adminProductTable');
+            tbody.innerHTML = products.map(p => `
+                <tr>
+                    <td><img src="${p.image || ''}" alt="${p.name}" class="table-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'table-img\' style=\'display:flex;align-items:center;justify-content:center;font-size:1.5rem;\'>${getEmoji(p.category)}</div>'"></td>
+                    <td>
+                        <strong>${p.name}</strong><br>
+                        <small style="color: #999;">${p.description.substring(0, 50)}...</small>
+                    </td>
+                    <td><span style="text-transform: capitalize; color: var(--gold); font-weight: 600;">${p.category}</span></td>
+                    <td style="font-weight: 700;">$${p.price.toFixed(2)}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="icon-btn edit" onclick="openEditModal(${p.id})" title="Edit">✏️</button>
+                            <button class="icon-btn delete" onclick="deleteProduct(${p.id})" title="Delete">🗑️</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openEditModal(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            
+            document.getElementById('editId').value = id;
+            document.getElementById('editName').value = product.name;
+            document.getElementById('editCategory').value = product.category;
+            document.getElementById('editDesc').value = product.description;
+            document.getElementById('editPrice').value = product.price;
+            document.getElementById('editLink').value = product.link;
+            document.getElementById('editImage').value = product.image || '';
+            
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        function updateProduct(e) {
+            e.preventDefault();
+            const id = parseInt(document.getElementById('editId').value);
+            const index = products.findIndex(p => p.id === id);
+            
+            if (index !== -1) {
+                products[index] = {
+                    id: id,
+                    name: document.getElementById('editName').value,
+                    category: document.getElementById('editCategory').value,
+                    description: document.getElementById('editDesc').value,
+                    price: parseFloat(document.getElementById('editPrice').value),
+                    link: document.getElementById('editLink').value,
+                    image: document.getElementById('editImage').value
+                };
+                
+                saveData();
+                renderAll();
+                updateStats();
+                closeEditModal();
+                showToast('Product updated! ✨', 'success');
+            }
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product? This cannot be undone.')) {
+                products = products.filter(p => p.id !== id);
+                saveData();
+                renderAll();
+                updateStats();
+                showToast('Product deleted', 'success');
+            }
+        }
+
+        // Settings
+        function saveSettings() {
+            const settings = {
+                title: document.getElementById('siteTitle').value,
+                email: document.getElementById('siteEmail').value,
+                meta: document.getElementById('siteMeta').value
+            };
+            localStorage.setItem('lumiere_settings', JSON.stringify(settings));
+            document.title = settings.title;
+            showToast('Settings saved! ✨', 'success');
+        }
+
+        // Stats
+        function updateStats() {
+            document.getElementById('statTotalProducts').textContent = products.length;
+            document.getElementById('statCategories').textContent = [...new Set(products.map(p => p.category))].length;
+            document.getElementById('statTotalValue').textContent = '$' + products.reduce((sum, p) => sum + p.price, 0).toFixed(0);
+            document.getElementById('statGuides').textContent = learningGuides.length;
+        }
+
+        // Storage
+        function saveData() {
+            localStorage.setItem('lumiere_products', JSON.stringify(products));
+            localStorage.setItem('lumiere_guides', JSON.stringify(learningGuides));
+            localStorage.setItem('lumiere_tips', JSON.stringify(tips));
+        }
+
+        // Toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Handle URL hash
+        if (window.location.hash) {
+            const section = window.location.hash.substring(1);
+            setTimeout(() => {
+                if (section === 'admin') {
+                    openLoginModal();
+                } else {
+                    const link = document.querySelector(`a[onclick="showSection('${section}')"]`);
+                    if (link) link.click();
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>s
